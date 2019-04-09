@@ -1,5 +1,7 @@
 package ilapin.basic;
 
+import ilapin.basic.vm.BasicString;
+
 public class PrintStatementStringItem extends PrintStatementItem {
 
 	private final BasicString string;

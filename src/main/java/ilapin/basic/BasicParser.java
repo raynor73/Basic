@@ -1,13 +1,14 @@
 package ilapin.basic;
 
-import java.io.IOException;
+import ilapin.basic.vm.BasicVirtualMachineImpl;
+
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BasicParser {
 
-	private final BasicVirtualMachine vm;
+	private final BasicVirtualMachineImpl vm;
 	private final Reader reader;
 
 	private State state = State.LINE_NUMBER_LOOKUP;
@@ -16,7 +17,7 @@ public class BasicParser {
 	private int lineNumber;
 	private final List<PrintStatementItem> printStatementItems = new ArrayList<>();
 
-	public BasicParser(final BasicVirtualMachine vm, final Reader reader) {
+	public BasicParser(final BasicVirtualMachineImpl vm, final Reader reader) {
 		this.vm = vm;
 		this.reader = reader;
 	}
@@ -113,7 +114,7 @@ public class BasicParser {
 				if (currentCharacter != '"') {
 					sb.append(currentCharacter);
 				} else {
-					printStatementItems.add(new PrintStatementStringItem())
+					//printStatementItems.add(new PrintStatementStringItem())
 					changeState(State.PRINT_STATEMENT_ITEMS_LOOKUP);
 				}
 				break;

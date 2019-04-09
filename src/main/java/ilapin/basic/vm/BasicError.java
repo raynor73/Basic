@@ -1,3 +1,3 @@
-package ilapin.basic;
+package ilapin.basic.vm;
 
 public class BasicError extends Exception {}

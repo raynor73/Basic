@@ -1,4 +1,6 @@
-package ilapin.basic;
+package ilapin.basic.vm;
+
+import ilapin.basic.vm.BasicError;
 
 public interface Operation {
 

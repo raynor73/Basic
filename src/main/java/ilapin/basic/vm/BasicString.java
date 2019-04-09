@@ -1,4 +1,7 @@
-package ilapin.basic;
+package ilapin.basic.vm;
+
+import ilapin.basic.StringError;
+import ilapin.basic.StringOverflowError;
 
 public class BasicString {
 
@@ -6,13 +9,20 @@ public class BasicString {
 	private int currentLength;
 	private final Character[] characters;
 
+	public BasicString(final String string) {
+		characters = new Character[string.length()];
+		for (int i = 0; i < characters.length; i++) {
+			characters[i] = string.charAt(i);
+		}
+		maxLength = characters.length;
+		currentLength = maxLength;
+	}
+
 	public BasicString(final Character[] characters) {
 		maxLength = characters.length;
 		currentLength = maxLength;
 		this.characters = new Character[maxLength];
-		for (int i = 0; i < this.characters.length; i++) {
-			this.characters[i] = characters[i];
-		}
+		System.arraycopy(characters, 0, this.characters, 0, this.characters.length);
 	}
 
 	public BasicString(final int maxLength) throws BasicError {
