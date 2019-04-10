@@ -1,4 +1,4 @@
-package ilapin.basic;
+package ilapin.basic.basicparser;
 
 public class PrintStatementExpressionItem extends PrintStatementItem {
 

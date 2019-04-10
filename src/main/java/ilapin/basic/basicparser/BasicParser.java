@@ -1,5 +1,6 @@
-package ilapin.basic;
+package ilapin.basic.basicparser;
 
+import ilapin.basic.L;
 import ilapin.basic.vm.BasicVirtualMachineImpl;
 
 import java.io.Reader;

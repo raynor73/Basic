@@ -1,7 +1,7 @@
 package ilapin.basic.vm;
 
-import ilapin.basic.StringError;
-import ilapin.basic.StringOverflowError;
+import ilapin.basic.basicparser.StringError;
+import ilapin.basic.basicparser.StringOverflowError;
 
 public class BasicString {
 
