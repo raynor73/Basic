@@ -17,6 +17,9 @@ public class Scanner {
         keywords.put("END",    TokenType.END);
         keywords.put("LET",    TokenType.LET);
         keywords.put("LEN",    TokenType.LEN);
+        keywords.put("AND",    TokenType.AND);
+        keywords.put("OR",     TokenType.OR);
+        keywords.put("MOD",    TokenType.MOD);
     }
 
     private final String source;
@@ -53,8 +56,21 @@ public class Scanner {
             case ';': addToken(TokenType.SEMICOLON); break;
             case '*': addToken(TokenType.STAR); break;
             case '=': addToken(TokenType.EQUAL); break;
-            case '<': addToken(TokenType.LESS); break;
-            case '>': addToken(TokenType.GREATER); break;
+            case '#': addToken(TokenType.NUMBER_SIGN); break;
+            case '<': {
+                final char testingChar = peek();
+                if (testingChar == '=') {
+                    advance();
+                    addToken(TokenType.LESS_EQUAL);
+                } else if (testingChar == '>') {
+                    advance();
+                    addToken(TokenType.NOT_EQUAL);
+                } else {
+                    addToken(TokenType.LESS);
+                }
+                break;
+            }
+            case '>': addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER); break;
             /*case '/':
                 if (match('/')) {
                     // A comment goes until the end of the line.

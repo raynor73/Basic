@@ -1,0 +1,5 @@
+expression: NUMBER | unary | binary | grouping
+grouping:   "(" expression ")"
+unary:      "-" expression
+binary:     expression operator expression
+operator:   "=" | "<>" | "#" | "<" | "<=" | ">" | ">=" | "AND" | "OR" | "MOD" | "+"  | "-"  | "*" | "/"
