@@ -88,6 +88,7 @@ public class Scanner {
                 break;
 
             case '\n':
+                addToken(TokenType.EOL);
                 line++;
                 break;
 

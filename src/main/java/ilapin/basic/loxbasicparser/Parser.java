@@ -2,6 +2,7 @@ package ilapin.basic.loxbasicparser;
 
 import ilapin.basic.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
@@ -11,6 +12,15 @@ public class Parser {
 
     public Parser(final List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public  List<Stmt> parse() {
+        final List<Stmt> statements = new ArrayList<>();
+        while (!isAtEnd()) {
+            statements.add(statement());
+        }
+
+        return statements;
     }
 
     private Expr expression() {
@@ -109,7 +119,7 @@ public class Parser {
     }
 
     private Expr primary() {
-        if (match(TokenType.NUMBER)) {
+        if (match(TokenType.NUMBER, TokenType.STRING)) {
             return new Expr.Literal(previous().literal);
         }
 
@@ -133,12 +143,17 @@ public class Parser {
         return new ParseError();
     }
 
-    public Expr parse() {
-        try {
-            return expression();
-        } catch (final ParseError error) {
-            return null;
-        }
+    private Stmt statement() {
+        if (match(TokenType.PRINT)) return printStatement();
+
+        //return expressionStatement();
+        throw new RuntimeException();
+    }
+
+    private Stmt printStatement() {
+        final Expr value = expression();
+        consume(TokenType.SEMICOLON, "Expect ';' after value.");
+        return new Stmt.Print(value);
     }
 
     /*private void synchronize() {

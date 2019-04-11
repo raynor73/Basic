@@ -1,15 +1,16 @@
-expression:     equality
-equality:       comparison (("#" | "<>" | "=") comparison)*
-comparison:     addition ((">" | ">=" | "<" | "<=") addition)*
-addition:       multiplication (("-" | "+") multiplication)*
-multiplication: unary (("MOD" | "/" | "*") unary)*
-unary:          ("NOT" | "-") unary
-                primary
-primary:        NUMBER | STRING
-                "(" expression ")"
+program:        line* EOF ;
 
-expression: NUMBER | unary | binary | grouping
-grouping:   "(" expression ")"
-unary:      "-" expression
-binary:     expression operator expression
-operator:   "=" | "<>" | "#" | "<" | "<=" | ">" | ">=" | "AND" | "OR" | "MOD" | "+"  | "-"  | "*" | "/"
+line:           NUMBER statement (: statement)* ;
+statement:      printStmt | endStmt ;
+printStmt:      "PRINT" (expression (("," | ";") expression)*)? ;
+endStmt:        "END" ;
+
+expression:     equality ;
+equality:       comparison (("#" | "<>" | "=") comparison)* ;
+comparison:     addition ((">" | ">=" | "<" | "<=") addition)* ;
+addition:       multiplication (("-" | "+") multiplication)* ;
+multiplication: unary (("MOD" | "/" | "*") unary)* ;
+unary:          ("NOT" | "-") unary
+                primary ;
+primary:        NUMBER | STRING
+                "(" expression ")" ;

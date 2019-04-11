@@ -1,5 +1,7 @@
 package ilapin.basic.loxbasicparser;
 
+import ilapin.basic.Main;
+
 public class Interpreter implements Expr.Visitor<Object> {
 
     @Override
@@ -15,30 +17,39 @@ public class Interpreter implements Expr.Visitor<Object> {
                 return isEqual(left, right);
 
             case GREATER:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left > (int) right;
                 
             case GREATER_EQUAL:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left >= (int) right;
                 
             case LESS:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left < (int) right;
                 
             case LESS_EQUAL:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left <= (int) right;
             
             case MOD:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left % (int) right;
 
             case PLUS:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left + (int) right;
 
             case MINUS:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left - (int) right;
 
             case SLASH:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left / (int) right;
 
             case STAR:
+                checkNumberOperands(expr.operator, left, right);
                 return (int) left * (int) right;
         }
 
@@ -64,6 +75,7 @@ public class Interpreter implements Expr.Visitor<Object> {
             case NOT:
                 return !isTruthy(right);
             case MINUS:
+                checkNumberOperand(expr.operator, right);
                 return -(int)right;
         }
 
@@ -71,6 +83,14 @@ public class Interpreter implements Expr.Visitor<Object> {
         return null;
     }
 
+    public void interpret(final Expr expression) {
+        try {
+            final Object value = evaluate(expression);
+            System.out.println(stringify(value));
+        } catch (final RuntimeError error) {
+            Main.runtimeError(error);
+        }
+    }
     private Object evaluate(final Expr expr) {
         return expr.accept(this);
     }
@@ -84,5 +104,20 @@ public class Interpreter implements Expr.Visitor<Object> {
         if (object == null) throw new NullPointerException();
         if (object instanceof Integer) return (int) object != 0;
         throw new RuntimeException("Unexpected type: " + object.getClass().getSimpleName());
+    }
+
+    private void checkNumberOperand(final Token operator, final Object operand) {
+        if (operand instanceof Integer) return;
+        throw new RuntimeError(operator, "Operand must be a number.");
+    }
+
+    private void checkNumberOperands(final Token operator, final Object left, final Object right) {
+        if (left instanceof Integer && right instanceof Integer) return;
+        throw new RuntimeError(operator, "Operands must be numbers.");
+    }
+
+    private String stringify(final Object object) {
+        if (object == null) return "null";
+        return object.toString();
     }
 }

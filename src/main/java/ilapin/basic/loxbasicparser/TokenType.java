@@ -24,5 +24,5 @@ public enum TokenType {
     // Functions
     LEN,
 
-    EOF
+    EOL, EOF
 }

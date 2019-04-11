@@ -3,6 +3,9 @@ package ilapin.basic.vm;
 import ilapin.basic.basicparser.StringError;
 import ilapin.basic.basicparser.StringOverflowError;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class BasicString {
 
     private final int maxLength;
@@ -70,5 +73,28 @@ public class BasicString {
         currentLength = sourceLength;
     }
 
-    // hashCode, equals
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final BasicString that = (BasicString) o;
+        return currentLength == that.currentLength &&
+                Arrays.equals(characters, that.characters);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(currentLength);
+        result = 31 * result + Arrays.hashCode(characters);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        final char[] chars = new char[characters.length];
+        for (int i = 0; i < chars.length; i++) {
+            chars[i] = characters[i];
+        }
+        return String.valueOf(chars) + "(" + currentLength + ", " + maxLength + ")";
+    }
 }
