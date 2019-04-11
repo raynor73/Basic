@@ -3,7 +3,7 @@ package ilapin.basic.loxbasicparser;
 public enum TokenType {
     // Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN,
-    COMMA, DOT, MINUS, PLUS, SEMICOLON, STAR, NUMBER_SIGN,
+    COMMA, DOT, MINUS, PLUS, SLASH, SEMICOLON, STAR, NUMBER_SIGN,
 
     // One or two character tokens.
     NOT_EQUAL,
@@ -19,7 +19,7 @@ public enum TokenType {
     // Keywords.
     /*AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
     PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,*/
-    LET, PRINT, END, OR, AND, MOD,
+    LET, PRINT, END, OR, AND, MOD, NOT,
 
     // Functions
     LEN,
